@@ -46,7 +46,8 @@ function composeBand(tag, fmt) {
 // What the thread band shows: {kind, text} or null. cur = API "get" answer, pendingTag = a FlyBy Bcc tag on a sent
 // message the engine has not picked up yet ('' if none).
 function threadBand(cur, pendingTag, fmt) {
-  if (!cur || !cur.ok) return null;
+  // a failed call says so: an empty band looked like "no reminder" while the extension was simply not set up (2026-11-27)
+  if (!cur || !cur.ok) return { kind: 'warn', text: 'FlyBy: could not read this conversation. ' + ((cur && cur.error) || 'No answer from your FlyBy web app') };
   const r = cur.reminder, has = l => (cur.labels || []).includes('FlyBy/' + l);
   if (cur.replied && (r || pendingTag)) return { kind: 'done', text: 'FlyBy: a reply arrived, the reminder closes at the next check (within 5 minutes)' };
   if (r) return { kind: 'wait', text: r.noreply

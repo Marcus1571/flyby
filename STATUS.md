@@ -52,6 +52,8 @@ _Last updated: 2026-11-27_
   deleted and recreated with one commit and one release (v0.5.2); earlier public commits and releases v0.4.6–v0.5.1 are in the
   private `flyby-archive` (branch `public-2026-11-26`, tags). Every other clone must be deleted and cloned again. The operator's own Chrome needs the 0.5.0 build reloaded and the two values pasted once (they are
   in the local, gitignored `extension/config.local.js`, which can then be deleted).
+  **v0.5.3**: the extension asks for its settings on every reload while they are empty, and a failed call shows a red
+  band instead of none (the operator's sent "222222" had no band because the reloaded 0.5.2 had no settings).
   Next, if wanted: "ack only" replies ("Ok", "thanks") keep the reminder and the band says so (proposal 2026-11-26).
 
 ## Decisions so far

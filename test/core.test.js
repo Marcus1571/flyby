@@ -87,7 +87,7 @@ assert.deepStrictEqual(describeTag('2d', f), { when: 'in 2 days', regardless: fa
 assert.deepStrictEqual(describeTag('u100.r', f), { when: 'on T6000000', regardless: true, followUp: false });
 assert.strictEqual(composeBand('tm.fabc123x', f), 'FlyBy: back in your inbox tomorrow morning if nobody replies, then sends your follow-up');
 assert.strictEqual(composeBand('1w.r', f), 'FlyBy: comes back to your inbox in 1 week');
-assert.strictEqual(threadBand({ ok: false }, '', f), null);
+assert.strictEqual(threadBand({ ok: false, error: 'not set up' }, '', f).kind, 'warn'); // failures are visible, not an empty band
 assert.strictEqual(threadBand({ ok: true, labels: [] }, '', f), null);
 assert.strictEqual(threadBand({ ok: true, reminder: { due: 5, noreply: true }, labels: ['FlyBy/Replied'] }, '', f).kind, 'wait'); // reminder wins
 assert.strictEqual(threadBand({ ok: true, labels: ['FlyBy/Replied'] }, '2d', f).kind, 'info'); // new round not yet scanned

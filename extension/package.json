@@ -1,7 +1,7 @@
 {
   "name": "flyby-extension",
   "private": true,
-  "version": "0.5.2",
+  "version": "0.5.3",
   "scripts": {
     "build": "esbuild src/content.js src/background.js --bundle --outdir=dist && cp manifest.json options.html options.js THIRD-PARTY-NOTICES.txt ../LICENSE node_modules/@inboxsdk/core/pageWorld.js dist/"
   },

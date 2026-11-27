@@ -160,7 +160,7 @@ far below 90 min/day runtime and 20,000 Gmail ops/day. Follow-ups and recurring 
 
 ## 7. Chrome extension
 
-`extension/` (InboxSDK, MV3, version 0.5.2) adds two buttons and a coloured status band to Gmail on the web:
+`extension/` (InboxSDK, MV3, version 0.5.3) adds two buttons and a coloured status band to Gmail on the web:
 
 - **Remind me** in the compose window: dropdown with the presets, a native date-time picker, an
   "only if nobody replies" checkbox, an optional follow-up text, and *Clear reminder*. Choosing one puts
@@ -181,7 +181,8 @@ far below 90 min/day runtime and 20,000 Gmail ops/day. Follow-ups and recurring 
     amber = waiting (with the due time); blue = sent with a tag the 5-minute scan has not picked up yet, or returned as
     scheduled; green = `FlyBy/Replied` (a reply ended the reminder), or `replied` from `get` while a round is still open
     (reply already in, the next tick closes it: "closes at the next check"); red = `FlyBy/No reply` / `FlyBy/Followed up`.
-    No FlyBy state = no band. Redrawn after set/cancel in the toolbar window. Logic in `src/code.js` `threadBand`
+    No FlyBy state = no band. A failed `get` (not set up, wrong token, web app unreachable) shows a red band with the error
+    (since 0.5.3; before, it showed nothing, which looked like "no reminder"). Redrawn after set/cancel in the toolbar window. Logic in `src/code.js` `threadBand`
     (tested), look in `src/menu.js` `band`.
   - One web-app call per opened thread (about 1-2 s before the band appears).
 
@@ -190,7 +191,7 @@ Files: `src/content.js` (Gmail UI), `src/menu.js` (shared menu), `src/code.js` (
 app with the URL + token from storage), `options.html`/`options.js` (settings page), `config.js` (InboxSDK app ID).
 
 Settings (since 0.5.0): the web app URL and token are entered on the extension's Options page (`options.html` +
-`options.js`, opens by itself on first install) and kept in `chrome.storage.local`; `background.js` reads them for every
+`options.js`, opens by itself on install and on every update or reload while URL or token is missing, since 0.5.3: reloading an unpacked build counts as an update) and kept in `chrome.storage.local`; `background.js` reads them for every
 call. Before 0.5.0 they were bundled into the build from `config.local.js`, so a built extension carried its owner's token;
 now one build serves everyone and is attached to each release (§2). The page checks the URL shape
 (`https://script.google.com/…/s/<id>/exec`, Workspace `/a/macros/<domain>/` too) and a 64-character hex token, saves, then

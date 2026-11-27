@@ -1,5 +1,20 @@
 # CHANGELOG — FlyBy
 
+## v0.5.3 (2026-11-27) — the thread band says when it cannot reach FlyBy
+
+Why: the operator sent "222222" with a 1-hour reminder; the compose band showed, the sent thread had `FlyBy/Waiting` but no
+band. The server answered `get` correctly (reminder due 13:03). The extension had reloaded as 0.5.2 with empty settings:
+Chrome reports reloading an unpacked build as an "update", and the settings page opened only on "install", so the URL and
+token were never asked for. Every web-app call failed ("not set up"); the compose band is local so it still showed, the
+thread band hid the failure, and the reminder only started with the 5-minute check instead of seconds after Send.
+
+Behavior changes
+- `extension/src/background.js`: the settings page opens on install and on every update or reload while URL or token is
+  missing (was: first install only).
+- `extension/src/code.js` `threadBand`: a failed call returns a red band "FlyBy: could not read this conversation. <error>"
+  instead of no band. `test/core.test.js`: the `ok: false` case now expects that band.
+- `extension/manifest.json`, `extension/package.json`: 0.5.3. No Apps Script change.
+
 ## v0.5.2 (2026-11-27) — clean room in the docs, licence notices in the extension
 
 Why: the operator wants FlyBy to stand on its own like any independent tool, with nothing a commercial vendor could object to:

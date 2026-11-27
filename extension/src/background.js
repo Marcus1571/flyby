@@ -12,4 +12,5 @@ chrome.runtime.onMessage.addListener((msg, _sender, send) => {
   return true; // answer asynchronously
 });
 
-chrome.runtime.onInstalled.addListener(({ reason }) => { if (reason === 'install') chrome.runtime.openOptionsPage(); });
+// install, and every update or reload while unset: reloading an unpacked build is an "update", so 0.5.1 users never saw the page (2026-11-27)
+chrome.runtime.onInstalled.addListener(() => chrome.storage.local.get(['apiUrl', 'apiToken']).then(({ apiUrl, apiToken }) => { if (!apiUrl || !apiToken) chrome.runtime.openOptionsPage(); }));
