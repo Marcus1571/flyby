@@ -1,0 +1,21 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FlyBy settings</title>
+<style>
+  body { font: 14px/1.5 system-ui, sans-serif; max-width: 34rem; margin: 2rem auto; padding: 0 1rem; color: #202124; }
+  label { display: block; margin-top: 1rem; font-weight: 600; }
+  input { width: 100%; box-sizing: border-box; padding: .5rem; font: inherit; border: 1px solid #c4c7c5; border-radius: 6px; }
+  button { margin-top: 1.25rem; padding: .5rem 1.25rem; font: inherit; border: 0; border-radius: 6px; background: #c2410c; color: #fff; cursor: pointer; }
+  #msg { margin-left: .75rem; }
+  .hint { color: #5f6368; font-weight: 400; }
+</style>
+<h1>FlyBy settings</h1>
+<p>Paste the two values from your own FlyBy Apps Script project (steps in the
+<a href="https://github.com/Marcus1571/flyby/blob/main/KB.md#2-install-once-per-google-account" target="_blank">install guide</a>).
+They stay in this browser only.</p>
+<label for="url">Web app URL <span class="hint">(ends in /exec)</span></label>
+<input id="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off">
+<label for="token">Token <span class="hint">(64 characters, from running setupApi)</span></label>
+<input id="token" type="password" autocomplete="off">
+<button id="save">Save and test</button><span id="msg" role="status"></span>
+<script src="options.js"></script>
